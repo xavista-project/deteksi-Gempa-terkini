@@ -17,7 +17,7 @@ def ekstraksi_data():
     hasil["Magnitudo"] = 5.4
     hasil["Kedalaman"] = "10 km"
     hasil["Lokasi"] = {"LS" : 8.24,  "BT" : 129.07 }
-    hasil["Pusat Gempa"] = "142 km Tenggara MALUKUBRTDAYA"
+    hasil["Pusat Gempa"] = "142 km Tenggara MALUKU BRT DAYA"
     hasil["Potensi"] = "tidak berpotensi TSUNAMI"
     
     return hasil
