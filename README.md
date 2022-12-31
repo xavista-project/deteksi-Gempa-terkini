@@ -1,0 +1,1 @@
+# deteksi-Gempa-terkini
