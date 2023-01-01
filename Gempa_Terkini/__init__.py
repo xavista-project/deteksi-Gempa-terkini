@@ -1,3 +1,6 @@
+import requests
+from bs4 import BeautifulSoup
+
 
 def ekstraksi_data():
 
@@ -11,16 +14,29 @@ def ekstraksi_data():
     Potensi : tidak berpotensi TSUNAMI
     """
 
-    hasil = dict()
-    hasil["Tanggal"] = "30 Desember 2022"
-    hasil["Waktu"] = "19:10:47 WIB"
-    hasil["Magnitudo"] = 5.4
-    hasil["Kedalaman"] = "10 km"
-    hasil["Lokasi"] = {"LS" : 8.24,  "BT" : 129.07 }
-    hasil["Pusat Gempa"] = "142 km Tenggara MALUKU BRT DAYA"
-    hasil["Potensi"] = "tidak berpotensi TSUNAMI"
-    
-    return hasil
+    try:
+        content = requests.get("https://bmkg.go.id")
+    except Exception:
+        return None
+
+    if content.status_code == 200:
+        soup = BeautifulSoup(content.text, "html.parser")
+        title = soup.find("title")
+        print(title.string)
+
+
+        hasil = dict()
+        hasil["Tanggal"] = "30 Desember 2022"
+        hasil["Waktu"] = "19:10:47 WIB"
+        hasil["Magnitudo"] = 5.4
+        hasil["Kedalaman"] = "10 km"
+        hasil["Lokasi"] = {"LS" : 8.24,  "BT" : 129.07 }
+        hasil["Pusat Gempa"] = "142 km Tenggara MALUKU BRT DAYA"
+        hasil["Potensi"] = "tidak berpotensi TSUNAMI"
+
+        return hasil
+    else:
+        return None
 
 def tampilkan_data(result):
     print("Gempa terakhir berdasarkan BMKG")

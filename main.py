@@ -3,9 +3,9 @@ Aplikasi Pendeteksi Gempa terkini
 MODULARISASI DENGAN FUNCTION
 """
 
-from Gempa_Terkini import ekstraksi_data, tampilkan_data
+import Gempa_Terkini
 
 if __name__ == "__main__":
     print("Aplikasi Utama Banget111")
-    result = ekstraksi_data()
-    tampilkan_data(result)
+    result = Gempa_Terkini.ekstraksi_data()
+    Gempa_Terkini.tampilkan_data(result)
