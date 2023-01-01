@@ -21,18 +21,47 @@ def ekstraksi_data():
 
     if content.status_code == 200:
         soup = BeautifulSoup(content.text, "html.parser")
-        title = soup.find("title")
-        print(title.string)
+
+        result = soup.find("span", {"class": "waktu"})
+        result = result.text.split(",")
+        Tanggal = result [0]
+        Waktu = result[1]
+
+        result = soup.find("ul", {"class": "list-unstyled"})
+        result = result.findChildren("li")
+        i = 0
+        Magnitudo = None
+        LS = None
+        BT = None
+        Kedalaman = None
+        Lokasi = None
+        Dirasakan = None
+
+        for res in result:
+
+            if i == 1:
+                Magnitudo = res.text
+            elif i == 2:
+                Kedalaman = res.text
+            elif i == 3:
+                Koordinat = res.text.split(" - ")
+                LS = Koordinat[0]
+                BT = Koordinat[1]
+            elif i == 4:
+                Lokasi = res.text
+            elif i == 5:
+                Dirasakan = res.text
+            i = i + 1
 
 
         hasil = dict()
-        hasil["Tanggal"] = "30 Desember 2022"
-        hasil["Waktu"] = "19:10:47 WIB"
-        hasil["Magnitudo"] = 5.4
-        hasil["Kedalaman"] = "10 km"
-        hasil["Lokasi"] = {"LS" : 8.24,  "BT" : 129.07 }
-        hasil["Pusat Gempa"] = "142 km Tenggara MALUKU BRT DAYA"
-        hasil["Potensi"] = "tidak berpotensi TSUNAMI"
+        hasil["Tanggal"] = Tanggal
+        hasil["Waktu"] = Waktu
+        hasil["Magnitudo"] = Magnitudo
+        hasil["Kedalaman"] = Kedalaman
+        hasil["Koordinat"] = {"LS": LS, "BT": BT}
+        hasil["Lokasi"] = Lokasi
+        hasil["Dirasakan"] = Dirasakan
 
         return hasil
     else:
@@ -44,6 +73,6 @@ def tampilkan_data(result):
     print(f"Waktu {result['Waktu']}")
     print(f"Magnitudo {result['Magnitudo']}")
     print(f"Kedalaman {result['Kedalaman']}")
-    print(f"Lokasi : LS = {result['Lokasi']['LS']}, BT = {result['Lokasi']['BT']}")
-    print(f"Pusat Gempa {result['Pusat Gempa']}")
-    print(f"Potensi {result['Potensi']}")
+    print(f"Koordinat : LS = {result['Koordinat']['LS']}, BT = {result['Koordinat']['BT']}")
+    print(f"Lokasi {result['Lokasi']}")
+    print(f"Dirasakan {result['Dirasakan']}")
