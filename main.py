@@ -6,6 +6,6 @@ MODULARISASI DENGAN FUNCTION
 from Gempa_Terkini import ekstraksi_data, tampilkan_data
 
 if __name__ == "__main__":
-    print("Aplikasi Utama Banget")
+    print("Aplikasi Utama Banget2")
     result = ekstraksi_data()
     tampilkan_data(result)
